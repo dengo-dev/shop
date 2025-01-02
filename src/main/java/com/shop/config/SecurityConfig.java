@@ -34,8 +34,8 @@ public class SecurityConfig  {
             .loginPage("/members/login")
             .defaultSuccessUrl("/")
             .usernameParameter("email")
-            .failureUrl("/members/login/error")        )
-            .logout( logoutCustomizer -> logoutCustomizer
+            .failureHandler(new CustomAuthenticationFailureHandler())
+        ).logout( logoutCustomizer -> logoutCustomizer
             .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
             .logoutSuccessUrl("/")
         
