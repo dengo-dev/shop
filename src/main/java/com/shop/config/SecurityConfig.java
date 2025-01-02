@@ -22,17 +22,26 @@ public class SecurityConfig  {
   MemberService memberService;
   
   
-  //임시로 모두 허용
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http
-        .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-            .requestMatchers(new AntPathRequestMatcher("/**"))
-            .permitAll()
-        );
-    return http.build();
+    return http.authorizeHttpRequests(authorizeHttpRequestsCustomizer -> authorizeHttpRequestsCustomizer
+            .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
+            .requestMatchers("/", "/members/**", "/item/**", "/images/**").permitAll()
+            .requestMatchers("/admin/**").hasRole("ADMIN")
+            .anyRequest()
+            .authenticated()
+        ).formLogin(formLoginCustomizer -> formLoginCustomizer
+            .loginPage("/members/login")
+            .defaultSuccessUrl("/")
+            .usernameParameter("email")
+        ).logout( logoutCustomizer -> logoutCustomizer
+            .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
+            .logoutSuccessUrl("/")
+        
+        )
+        .build()
+        ;
   }
-
 
   
   @Bean
