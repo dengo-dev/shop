@@ -115,5 +115,10 @@ class OrderTest {
     
     OrderItem orderItem = orderItemRepository.findById(orderItemId).orElseThrow(EntityNotFoundException::new);
     System.out.println("Order class: " + orderItem.getOrder().getClass());
+    
+    //LAZY설정 후 추가
+    System.out.println("===============================");
+    orderItem.getOrder().getOrderDate();
+    System.out.println("===============================");
   }
 }
