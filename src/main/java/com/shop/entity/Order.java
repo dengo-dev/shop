@@ -30,7 +30,8 @@ public class Order {
   @Enumerated(EnumType.STRING)
   private OrderStatus orderStatus;
   
-  @OneToMany(mappedBy = "order",cascade = CascadeType.ALL) //orderItem에 있는 Order에 의해 관리된다는 의미
+  @OneToMany(mappedBy = "order",cascade = CascadeType.ALL, //mappedBy는 orderItem에 있는 Order에 의해 관리된다는 의미
+  orphanRemoval = true)  //고아 객체를 사용하기 위해 사용
   private List<OrderItem> orderItems = new ArrayList<>(); //하나의 주문이 여러개의 주문 상품을 갖기 때문에 List사용
   
   
