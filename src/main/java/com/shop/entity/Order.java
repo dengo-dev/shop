@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name = "orders")
 @Getter
 @Setter
-public class Order {
+public class Order extends BaseEntity{ //기존 regTime, updateTime 변수 삭제 후 BaseEntity 상속
   
   @Id
   @GeneratedValue
@@ -36,7 +36,5 @@ public class Order {
   private List<OrderItem> orderItems = new ArrayList<>(); //하나의 주문이 여러개의 주문 상품을 갖기 때문에 List사용
   
   
-  private LocalDateTime regTime;
-  
-  private LocalDateTime updateTime;
+
 }

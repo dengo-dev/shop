@@ -11,7 +11,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Cart {
+public class Cart extends BaseEntity{ //기존 regTime, updateTime 변수 삭제 후 BaseEntity 상속
   
   @Id
   @Column(name = "cart_id")

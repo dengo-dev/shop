@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @ToString
 @Entity
 @Table(name = "item")
-public class Item {
+public class Item extends BaseEntity{ //기존 regTime, updateTime 변수 삭제 후 BaseEntity 상속
   
   
   @Id
@@ -40,7 +40,5 @@ public class Item {
   @Enumerated(EnumType.STRING)
   private ItemSellStatus itemSellStatus; //상품 판매 상태
   
-  private LocalDateTime regTime; //등록시간
-  
-  private LocalDateTime updateTime;
+
 }
