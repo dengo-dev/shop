@@ -3,6 +3,7 @@ package com.shop.entity;
 import com.shop.constant.ItemSellStatus;
 import com.shop.repository.ItemRepository;
 import com.shop.repository.MemberRepository;
+import com.shop.repository.OrderItemRepository;
 import com.shop.repository.OrderRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.time.LocalDateTime;
 
@@ -28,6 +30,9 @@ class OrderTest {
   
   @Autowired
   ItemRepository itemRepository;
+  
+  @Autowired
+  OrderItemRepository orderItemRepository;
   
   @PersistenceContext
   EntityManager em;
@@ -98,5 +103,17 @@ class OrderTest {
     order.getOrderItems().remove(0);
     em.flush();
     
+  }
+  
+  @Test
+  @DisplayName("지연 로딩 테스트")
+  public void lazyLoadingTest() {
+    Order order = this.createOrder();
+    Long orderItemId = order.getOrderItems().get(0).getId();
+    em.flush();
+    em.clear();
+    
+    OrderItem orderItem = orderItemRepository.findById(orderItemId).orElseThrow(EntityNotFoundException::new);
+    System.out.println("Order class: " + orderItem.getOrder().getClass());
   }
 }
