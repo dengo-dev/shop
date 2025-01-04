@@ -2,9 +2,14 @@ package com.shop.controller;
 
 
 import com.shop.dto.ItemFormDto;
+import com.shop.dto.ItemSearchDto;
+import com.shop.entity.Item;
 import com.shop.service.ItemService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ItemController {
@@ -54,7 +60,7 @@ public class ItemController {
   }
   
   @GetMapping(value = "/admin/item/{itemId}")
-  public String itemDtl(@PathVariable("itemId") Long itemId, Model model){
+  public String itemDtl(@PathVariable("itemId") Long itemId, Model model) {
     try {
       ItemFormDto itemFormDto = itemService.getItemDtl(itemId);
       model.addAttribute("itemFormDto", itemFormDto);
@@ -82,5 +88,17 @@ public class ItemController {
       return "item/itemForm";
     }
     return "redirect:/";
+  }
+  
+  @GetMapping(value = {"/admin/item", "/admin/items/{page}"})
+  public String itemManage(ItemSearchDto itemSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
+    Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 3);
+    
+    Page<Item> items = itemService.getAdminItemPage(itemSearchDto, pageable);
+    model.addAttribute("items", items);
+    //페이지 전환시 기존 검색 조건을 유지하려고 뷰에 다시 전달.
+    model.addAttribute("itemSearchDto", itemSearchDto);
+    model.addAttribute("maxPage", 5);
+    return "item/itemMng";
   }
 }
