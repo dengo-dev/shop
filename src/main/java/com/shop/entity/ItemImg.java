@@ -29,7 +29,7 @@ public class ItemImg extends BaseEntity {
   private Item item;
   
   //이미지 정보를 업데이트 하는 메소드
-  public ItemImg(String oriImgName, String imgName, String imgUrl) {
+  public void updateItemImg(String oriImgName, String imgName, String imgUrl){
     this.oriImgName = oriImgName;
     this.imgName = imgName;
     this.imgUrl = imgUrl;
