@@ -36,5 +36,29 @@ public class Order extends BaseEntity{ //기존 regTime, updateTime 변수 삭�
   private List<OrderItem> orderItems = new ArrayList<>(); //하나의 주문이 여러개의 주문 상품을 갖기 때문에 List사용
   
   
-
+  public void addOrderItem(OrderItem orderItem) {
+    orderItems.add(orderItem);
+    orderItem.setOrder(this); //Order엔티티, OrderItem엔티티가 양방향 참조이르모 OrderItem객체에도 Order객체를 세팅
+  }
+  
+  public static Order createOrder(Member member, List<OrderItem> orderItemList) {
+    Order order = new Order();
+    order.setMember(member);
+    for (OrderItem orderItem : orderItemList) {
+      order.addOrderItem(orderItem);
+      
+    }
+    order.setOrderStatus(OrderStatus.ORDER);
+    order.setOrderDate(LocalDateTime.now());
+    
+    return order;
+  }
+  
+  public int getTotalPrice() {
+    int totalPrice = 0;
+    for (OrderItem orderItem : orderItems) {
+      totalPrice += orderItem.getTotalPrice();
+    }
+    return totalPrice;
+  }
 }
