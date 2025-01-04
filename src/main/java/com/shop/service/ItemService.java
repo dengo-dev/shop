@@ -3,12 +3,15 @@ package com.shop.service;
 
 import com.shop.dto.ItemFormDto;
 import com.shop.dto.ItemImgDto;
+import com.shop.dto.ItemSearchDto;
 import com.shop.entity.Item;
 import com.shop.entity.ItemImg;
 import com.shop.repository.ItemImgRepository;
 import com.shop.repository.ItemRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,7 +30,7 @@ public class ItemService {
   
   private final ItemImgRepository itemImgRepository;
   
-  public Long saveItem(ItemFormDto itemFormDto,List<MultipartFile> itemImgFileList)throws Exception {
+  public Long saveItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList) throws Exception {
     
     
     Item item = itemFormDto.createItem();
@@ -39,7 +42,7 @@ public class ItemService {
       
       if (i == 0)
         itemImg.setRepImgYn("Y");
-        else
+      else
         itemImg.setRepImgYn("N");
       itemImgService.saveItemImg(itemImg, itemImgFileList.get(i));
     }
@@ -66,7 +69,7 @@ public class ItemService {
     return itemFormDto;
   }
   
-  public Long updateItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList) throws Exception{
+  public Long updateItem(ItemFormDto itemFormDto, List<MultipartFile> itemImgFileList) throws Exception {
     //상품 수정
     Item item = itemRepository.findById(itemFormDto.getId())
         .orElseThrow(EntityNotFoundException::new);
@@ -74,11 +77,16 @@ public class ItemService {
     List<Long> itemImgIds = itemFormDto.getItemImgIds();
     
     //이미지 등록
-    for(int i=0;i<itemImgFileList.size();i++){
+    for (int i = 0; i < itemImgFileList.size(); i++) {
       itemImgService.updateItemImg(itemImgIds.get(i),
           itemImgFileList.get(i));
     }
     
     return item.getId();
+  }
+  
+  @Transactional(readOnly = true)
+  public Page<Item> getAdminItemPage(ItemSearchDto itemSearchDto, Pageable pageable) {
+    return itemRepository.getAdminItemPage(itemSearchDto, pageable);
   }
 }
