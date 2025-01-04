@@ -72,6 +72,8 @@ public class ItemServiceTest {
     assertEquals(itemFormDto.getItemDetail(), item.getItemDetail());
     assertEquals(itemFormDto.getPrice(), item.getPrice());
     assertEquals(itemFormDto.getStockNumber(), item.getStockNumber());
+    
+    //상품이미지 첫 번쨰 파일 원본 이미지랑 파일 이름이 같은지 확인
     assertEquals(multipartFileList.get(0).getOriginalFilename(), itemImgList.get(0).getOriImgName());
   }
   
