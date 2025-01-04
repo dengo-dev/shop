@@ -90,15 +90,17 @@ public class ItemController {
     return "redirect:/";
   }
   
-  @GetMapping(value = {"/admin/item", "/admin/items/{page}"})
-  public String itemManage(ItemSearchDto itemSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
-    Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 3);
+  @GetMapping(value = {"/admin/items", "/admin/items/{page}"})
+  public String itemManage(ItemSearchDto itemSearchDto, @PathVariable("page") Optional<Integer> page, Model model){
     
+    Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 3);
     Page<Item> items = itemService.getAdminItemPage(itemSearchDto, pageable);
+    
     model.addAttribute("items", items);
     //페이지 전환시 기존 검색 조건을 유지하려고 뷰에 다시 전달.
     model.addAttribute("itemSearchDto", itemSearchDto);
     model.addAttribute("maxPage", 5);
+    
     return "item/itemMng";
   }
 }
