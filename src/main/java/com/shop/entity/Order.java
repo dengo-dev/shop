@@ -61,4 +61,14 @@ public class Order extends BaseEntity{ //기존 regTime, updateTime 변수 삭�
     }
     return totalPrice;
   }
+  
+  
+  //주문 취소시 주문 수량을 상품 재고에 더해주는 로직과 주문 상태를 취소상태로 바꿔줌
+  public void cancelOrder() {
+    this.orderStatus = orderStatus.CANCEL;
+    
+    for (OrderItem orderItem : orderItems) {
+      orderItem.cancel();
+    }
+  }
 }
