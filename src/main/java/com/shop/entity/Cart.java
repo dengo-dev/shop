@@ -15,7 +15,7 @@ public class Cart extends BaseEntity{ //기존 regTime, updateTime 변수 삭제
   
   @Id
   @Column(name = "cart_id")
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   
   @OneToOne(fetch = FetchType.LAZY)  //지연로딩 설정
