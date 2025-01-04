@@ -58,7 +58,7 @@ public class OrderService {
       OrderHistDto orderHistDto = new OrderHistDto(order);
       List<OrderItem> orderItems = order.getOrderItems();
       for (OrderItem orderItem : orderItems) {
-        ItemImg itemImg = itemImgRepository.findByItemIdAndRepimgYn
+        ItemImg itemImg = itemImgRepository.findByItemIdAndRepImgYn
             (orderItem.getItem().getId(), "Y");
         OrderItemDto orderItemDto =
             new OrderItemDto(orderItem, itemImg.getImgUrl());
