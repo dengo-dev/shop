@@ -17,7 +17,7 @@ import java.util.List;
 public class Order extends BaseEntity{ //기존 regTime, updateTime 변수 삭제 후 BaseEntity 상속
   
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "order_id")
   private Long id;
   

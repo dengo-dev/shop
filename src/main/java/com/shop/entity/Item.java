@@ -19,7 +19,7 @@ public class Item extends BaseEntity{ //기존 regTime, updateTime 변수 삭제
   
   
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "item_id")
   private Long id;
   

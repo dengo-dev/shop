@@ -12,7 +12,7 @@ import lombok.Setter;
 public class CartItem extends BaseEntity{ //기존 regTime, updateTime 변수 삭제 후 BaseEntity 상속
   
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "cart_item_id")
   private Long id;
   
