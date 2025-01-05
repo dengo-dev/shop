@@ -88,8 +88,9 @@ public class OrderService {
   
   
   //변경감지로인해 트랜잭션이 끝날 때 update쿼리 실행
-  public void cancelOrder(Long orderId) {
-    Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
+  public void cancelOrder(Long orderId){
+    Order order = orderRepository.findById(orderId)
+        .orElseThrow(EntityNotFoundException::new);
     order.cancelOrder();
   }
   

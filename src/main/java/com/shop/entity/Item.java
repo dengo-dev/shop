@@ -58,7 +58,9 @@ public class Item extends BaseEntity{ //기존 regTime, updateTime 변수 삭제
     this.stockNumber = restStock;
   }
   
-  public void addStock(int StockNumber) { //상품 재고증가 메소드
+  public void addStock(int stockNumber) { //상품 재고증가 메소드
     this.stockNumber += stockNumber;
   }
+  
+  
 }
