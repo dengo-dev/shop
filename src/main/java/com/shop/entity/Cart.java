@@ -23,4 +23,10 @@ public class Cart extends BaseEntity{ //기존 regTime, updateTime 변수 삭제
   private Member member;
   
   
+  //멤버 한 명당 한 개의 장바구니
+  public static Cart createCart(Member member) {
+    Cart cart = new Cart();
+    cart.setMember(member);
+    return cart;
+  }
 }

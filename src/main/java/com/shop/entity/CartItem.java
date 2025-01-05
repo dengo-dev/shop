@@ -25,4 +25,18 @@ public class CartItem extends BaseEntity{ //기존 regTime, updateTime 변수 �
   private Item item; //하나의 상품은 여러 장바구니의 장바구니 상품으로 담길 수 있기에
   
   private int count; //같은 상품을 몇개 담을지
+  
+  
+  public static CartItem createCartItem(Cart cart, Item item, int count) {
+    CartItem cartItem = new CartItem();
+    cartItem.setCart(cart);
+    cartItem.setItem(item);
+    cartItem.setCount(count);
+    return cartItem;
+  }
+  
+  //해당 상품을 담을 떄 기존 수량에 현재 담을 수량을 더해주는 메소드
+  public void addCount(int count) {
+    this.count += count;
+  }
 }
