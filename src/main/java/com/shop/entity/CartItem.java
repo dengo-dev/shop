@@ -39,4 +39,9 @@ public class CartItem extends BaseEntity{ //기존 regTime, updateTime 변수 �
   public void addCount(int count) {
     this.count += count;
   }
+  
+  //장바구니 담겨 있는 수량 변경
+  public void updateCount(int count) {
+    this.count = count;
+  }
 }

@@ -12,10 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -61,5 +58,20 @@ public class CartController {
     List<CartDetailDto> cartDetailDtoList = cartService.getCartList(principal.getName()); //현재 로그인한 사용자의 이메일 정보를 이용해 장바구니에 담겨있는 상품조회
     model.addAttribute("cartItems", cartDetailDtoList);
     return "cart/cartList";
+  }
+  
+  @PatchMapping("/cartItem/{cartItemId}")
+  public @ResponseBody ResponseEntity updateCartItem(@PathVariable("cartItemId") Long cartItemId, int count, Principal principal) {
+    if (count <= 0) {
+      return new ResponseEntity<String>("최소 1개 이상 담아주세요", HttpStatus.BAD_REQUEST);
+      
+      //수정 권한 체크
+    } else if (!cartService.validateCartItem(cartItemId, principal.getName())) {
+      return new ResponseEntity<String>("수정 권한이 없습니다.", HttpStatus.FORBIDDEN);
+    }
+    
+    //장바구니 개수 업데이트
+    cartService.updateCartItemCart(cartItemId, count);
+    return new ResponseEntity<Long>(cartItemId, HttpStatus.OK);
   }
 }
