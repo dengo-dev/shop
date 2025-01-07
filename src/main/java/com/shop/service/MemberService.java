@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional //로직처리하다가 에러발생 시 이전 상태로 콜백
 @RequiredArgsConstructor
-public class MemberService implements UserDetailsService {
+public class MemberService implements UserDetailsService { //MemberService가 UserDetailService구현
   
   private final MemberRepository memberRepository;
   
@@ -40,7 +40,7 @@ public class MemberService implements UserDetailsService {
       throw new UsernameNotFoundException(email);
     }
     
-    return User.builder()
+    return User.builder()  //User객체를 반환
         .username(member.getEmail())
         .password(member.getPassword())
         .roles(member.getRole().toString())

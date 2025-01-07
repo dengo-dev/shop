@@ -19,7 +19,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class ItemControllerTest {
   
   @Autowired
-  MockMvc mockMvc;
+  MockMvc mockMvc; //테스트에 필요한 기능만 가지는 가짜 객체, MockMvc를 이용하면 웹 브라우저에서 요청하는 것처럼 테스트 가능
+
   
   @Test
   @DisplayName("상품 등록 페이지 권한 테스트")

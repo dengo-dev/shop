@@ -33,8 +33,8 @@ public class SecurityConfig  {
         ).formLogin(formLoginCustomizer -> formLoginCustomizer
             .loginPage("/members/login")
             .defaultSuccessUrl("/")
-            .usernameParameter("email")
-            .failureHandler(new CustomAuthenticationFailureHandler())
+            .usernameParameter("email")  //로그인 시 사용할 파라미터 이름
+            .failureHandler(new CustomAuthenticationFailureHandler())  //로그인 실패시
         ).logout( logoutCustomizer -> logoutCustomizer
             .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
             .logoutSuccessUrl("/")

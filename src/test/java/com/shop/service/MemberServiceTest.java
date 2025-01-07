@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 @SpringBootTest
-@Transactional
+@Transactional //테스트 코드에 있는 경우 테스트 실행 후 롤백 처리.
 @TestPropertySource(locations="classpath:application-test.properties")
 class MemberServiceTest {
   
