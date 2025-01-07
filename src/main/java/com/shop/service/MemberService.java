@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
+@Transactional //로직처리하다가 에러발생 시 이전 상태로 콜백
 @RequiredArgsConstructor
 public class MemberService implements UserDetailsService {
   
