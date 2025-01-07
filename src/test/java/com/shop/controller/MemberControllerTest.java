@@ -48,6 +48,8 @@ class MemberControllerTest {
     String password = "1234";
     this.createMember(email, password);
     mockMvc.perform(formLogin().userParameter("email")
+                    //가입된 회원 정보로 로그인 되는지 테스트
+                    //UserParameter를 이용해 이메일을 아이디로 세탕하고 로그인 URL요청
                     .loginProcessingUrl("/members/login")
                     .user(email).password(password))
             .andExpect(SecurityMockMvcResultMatchers.authenticated());
@@ -62,6 +64,8 @@ class MemberControllerTest {
     mockMvc.perform(formLogin().userParameter("email")
                     .loginProcessingUrl("/members/login")
                     .user(email).password("12345"))
+            //회원가입은 정상적이지만 회원가입시 입력한 비밀번호가 아닌 다른 비밀번호로 로그인 시도시
+            //인증되지 않은 결과 값이 출력되어 테스트 통과
             .andExpect(SecurityMockMvcResultMatchers.unauthenticated());
   }
 

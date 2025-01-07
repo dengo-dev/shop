@@ -56,7 +56,9 @@ public class CartTest {
     cartRepository.save(cart);
     
     em.flush();
-    //영속성 컨텍스트에 엔티티가 없을 경우 db를 조회함. 실제 db에서 장바구니 엔티티를 갖고 올떄 회원 엔티티도 갖고 오는지 보기위해 영속석 컨텍스트를 비워줌
+
+    //영속성 컨텍스트에 엔티티가 없을 경우 db를 조회함. 실제 db에서 장바구니 엔티티를 갖고 올떄
+    // 회원 엔티티도 갖고 오는지 보기위해 영속석 컨텍스트를 비워줌
     em.clear();
     
     Cart savedCart = cartRepository.findById(cart.getId())

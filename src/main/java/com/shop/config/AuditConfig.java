@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 public class AuditConfig {
   
   @Bean
+  //등록자와 수정자를 처리해주는 AuditorAware를 빈으로 등록
   public AuditorAware<String> auditorProvider() {
     return new AuditorAwareImpl();
   }

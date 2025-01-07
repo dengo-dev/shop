@@ -8,6 +8,8 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 
 import java.io.IOException;
 
+
+//인증되지 않은 사용자에게 Unauthorized에러 발생하도록 인터페이스 구현
 public class CustomAuthenticationFailureHandler implements AuthenticationFailureHandler {
   
   @Override

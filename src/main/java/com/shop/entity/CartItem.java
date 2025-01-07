@@ -15,10 +15,11 @@ public class CartItem extends BaseEntity{ //기존 regTime, updateTime 변수 �
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "cart_item_id")
   private Long id;
-  
+
+  //장바구니 하나에 많은 Item을 담을 수 있음
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "cart_id")
-  private Cart cart; //하나의 장바구니에 여러개의 아이템을 담을 수 있다.
+  private Cart cart;
   
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "item_id")

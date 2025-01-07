@@ -27,7 +27,7 @@ public class SecurityConfig  {
     return http.authorizeHttpRequests(authorizeHttpRequestsCustomizer -> authorizeHttpRequestsCustomizer
             .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
             .requestMatchers("/", "/members/**", "/item/**", "/images/**").permitAll()
-            .requestMatchers("/admin/**").hasRole("ADMIN")
+            .requestMatchers("/admin/**").hasRole("ADMIN") //요청하는 계정이 AMIND권한이여야 한다
             .anyRequest()
             .authenticated()
         ).formLogin(formLoginCustomizer -> formLoginCustomizer
